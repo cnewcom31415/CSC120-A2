@@ -76,5 +76,7 @@ def refurbish(item_id: int, new_os: Optional[str] = None):
 def main():
     buy({"description":"2019 MacBook Pro", "processor_type":"Intel", "hard_drive_capacity":256, "memory":16, "operating_system":"High Sierra", "year_made":2019, "price":1000})
     print_inventory()
+    #update_price(0, 1500)
+    #print_inventory()
 
 main()
