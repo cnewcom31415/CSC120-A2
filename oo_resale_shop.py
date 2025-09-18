@@ -51,7 +51,7 @@ class ResaleShop:
     if there is not a computer associated with that id number, print an error.
     """
     def update_price(self, item_id: int, new_price: int):
-        if (len(self.inventory)-1 >= item_id):
+        if (len(self.inventory)-1 >= item_id and item_id>0):
             self.inventory[item_id].set_price(new_price)
         else:
             print("Item", item_id, "not found. Cannot update price.")
@@ -63,7 +63,7 @@ class ResaleShop:
     error.
     """
     def sell(self, item_id: int):
-        if (len(self.inventory)-1 >= item_id):
+        if (len(self.inventory)-1 >= item_id and item_id>0):
             self.inventory.pop(item_id)
             print("Item", item_id, "sold!")
         else:
@@ -90,7 +90,7 @@ class ResaleShop:
     If the id is not associated with a computer, print an error.
     """
     def refurbish(self, item_id: int, new_os: Optional[str] = None):
-        if (len(self.inventory)-1 >= item_id):
+        if (len(self.inventory)-1 >= item_id and item_id>0):
             item = self.inventory[item_id] # locate the computer
             item.refurbish_computer(new_os) # call on a helper method in the computer class
             self.inventory[item_id] = item
@@ -135,6 +135,7 @@ def main():
     my_Shop.refurbish(item_id=3,new_os="MacOS")
     my_Shop.refurbish(item_id=4,new_os="MacOS")
     my_Shop.refurbish(item_id=5,new_os="MacOS") #should print an error
+    
     my_Shop.print_inventory() 
     # 0 should have price 1000, 1 should have price 0
     # 2 should have price 250, 3 should have price 550, 4 should have price 1000
@@ -144,7 +145,10 @@ def main():
     my_Shop.print_inventory() # Macbook should be gone
     my_Shop.sell(5) #should print an error
 
-    print("Hello World")
+    my_Shop.refurbish(item_id=-2,new_os="MacOS")
+    my_Shop.sell(item_id=-2)
+    my_Shop.update_price(item_id=-2, new_price=100) #all 3 should print errors
+    
 
 
 if __name__ == "__main__":
