@@ -1,4 +1,11 @@
+"""
+   Filename: oo_resale_shop.py
+Description: A class that simulates a computer resale shop.
+     Author: Claire Newcom (cnewcom@smith.edu)
+       Date: 18 September 2025  
+"""
 from computer import Computer
+
 class ResaleShop:
 
     
@@ -7,10 +14,17 @@ class ResaleShop:
     # What attributes will it need?
     # inventory
 
+    """ 
+    inventory: a list that stores the inventory of the shop. 
+    The inventory consists of computer objects.
+    """
     inventory : list = []
 
     # How will you set up your constructor?
     # Remember: in python, all constructors have the same name (__init__)
+    """
+    Initializes an instance of the ResaleShop class
+    """
     def __init__(self):
         self.inventory = []
         
@@ -22,16 +36,32 @@ class ResaleShop:
     #   print inventory (use the computer print function (will have to make))
     #   refurbish
 
+    """ 
+    Simulates the aquisition of a new computer in the shop. Takes in
+    a computer object, returns the index of that computer object in the 
+    inventory (aka the item_id).
+    """
     def buy (self, new_item:Computer):
         self.inventory.append(new_item)
         return self.inventory.index(new_item)
     
+    """ 
+    Takes in an item_id as an int and a new_price as an int. If there is a 
+    computer associated with the given id, change the price of that computer,
+    if there is not a computer associated with that id number, print an error.
+    """
     def update_price(self, item_id: int, new_price: int):
         if (len(self.inventory)-1 >= item_id):
             self.inventory[item_id].set_price(new_price)
         else:
             print("Item", item_id, "not found. Cannot update price.")
 
+    """
+    Takes in an item_id as an int. If there is a computer associated with the
+    given id, remove that item from the inventory, and print that it has been
+    sold. If there is not a computer associated with the given id, print an
+    error.
+    """
     def sell(self, item_id: int):
         if (len(self.inventory)-1 >= item_id):
             self.inventory.pop(item_id)
@@ -39,6 +69,11 @@ class ResaleShop:
         else:
             print("Item", item_id, "not found. Please select another item to sell.")
 
+
+    """
+    Prints out all computers in the inventory. If the inventory is empty, print 
+    "No inventory to display."
+    """
     def print_inventory(self):
         if self.inventory:
         # For each item
@@ -48,17 +83,24 @@ class ResaleShop:
         else:
             print("No inventory to display.")
 
-    # redo this in computer
+    
+    """
+    Takes in an item_id as an int and a new_os as an Optional[str]. If there is
+    a computer associated with the id, refurbish that item and update the inventory.
+    If the id is not associated with a computer, print an error.
+    """
     def refurbish(self, item_id: int, new_os: Optional[str] = None):
         if (len(self.inventory)-1 >= item_id):
             item = self.inventory[item_id] # locate the computer
-            item.refurbish_Computer(new_os)
+            item.refurbish_computer(new_os) # call on a helper method in the computer class
             self.inventory[item_id] = item
         else:
             print("Item", item_id, "not found. Please select another item to refurbish.")
 
 
-
+"""
+A main method used to test the code.
+"""
 def main():
 
     my_Shop = ResaleShop()
