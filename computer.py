@@ -1,5 +1,7 @@
 class Computer:
 
+    from typing import Optional
+
     # What attributes will it need?
     # Based on the procedural shop, a computer has the features:
     #           - description  - processor_type  - hard_drive_capacity
@@ -31,7 +33,21 @@ class Computer:
     #       - printComputer
 
     def print_computer(self):
-        print("Description: " + self.description + " Processor type: " + self.processor_type + " Hard Drive Capacity: " + self.hard_drive_capacity + " Memory: " + self.memory + " Operating System: " + self.operating_system + " Price: " + self.price)
+        return("Description: " + self.description + ", Processor type: " + self.processor_type + ", Hard Drive Capacity: " + str(self.hard_drive_capacity) + ", Memory: " + str(self.memory) + ", Operating System: " + self.operating_system +  ", Year Made: " + str(self.year_made) + ", Price: " + str(self.price))
+
+    def refurbish_Computer(self, new_os: Optional[str] = None):
+        if int(self.year_made) < 2000:
+            self.price = 0 # too old to sell, donation only
+        elif int(self.year_made) < 2012:
+            self.price =250 # heavily-discounted price on machines 10+ years old
+        elif int(self.year_made) < 2018:
+            self.price = 550 # discounted price on machines 4-to-10 year old machines
+        else:
+            self.price = 1000 # recent stuff
+
+        if new_os is not None:
+            self.operating_system = new_os # update details after installing new OS
+        
 
     def get_description(self):
         return self.description
